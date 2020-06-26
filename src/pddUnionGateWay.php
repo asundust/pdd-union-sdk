@@ -86,7 +86,7 @@ class pddUnionGateWay
             $response = $this->isCurl == false ? Curl::curl_post(self::URL, $params): Curl::fpm_curl_post(self::URL, $params);
             $info = strtolower($data_type) == 'json' ? json_decode($response, true) : $response;
             if (isset($info['error_response'])) {
-                $this->pddUnionFactory->setError($info['error_response']['error_msg']);
+                $this->pddUnionFactory->setError($info['error_response']['error_msg'] . ' ' . ($info['error_response']['error_msg'] ?? ''));
                 return false;
             }
             return \current($info);
